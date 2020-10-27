@@ -17,3 +17,18 @@ variable "Elasticsearch_name" {
   default = "elasticsearch"
   description = "Elasticsearch clustername "
 }
+
+variable "agents_size" {
+  default = "Standard_F2"
+  description = "The default virtual machine size for the Kubernetes agents"
+}
+
+variable "agents_count" {
+  default = "1"
+  description = "AKS node count "
+}
+
+variable "kubernetes_version" {
+  description = "Version of Kubernetes to install"
+  default     = "1.11.3"
+}
