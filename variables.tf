@@ -30,10 +30,8 @@ variable "agents_count" {
 
 variable "client_id" {
   description = "AAD client_id"
-  default     = "1f8e7c84-21f9-49be-82d0-0f7aaaf04f7a"
 }
 
 variable "client_secret" {
   description = "AAD client_secret"
-  default     = "8~SLTgo9B0o3.dh2YVAws~_JkNRm.sx_uZ"
 }
