@@ -3,40 +3,39 @@ provider "azurerm" {
 }
 
 resource "azurerm_resource_group" "aks" {
-  name     = var.resourcegroupname
+  name     = "${var.prefix_env}${var.prefix_loc}-${var.prefix_proj}-rg"
   location = var.location
   tags = {
     environment = "dev"
   }
 }
 
-module "network" {
+module "network01" {
   source              = "Azure/network/azurerm"
   resource_group_name = azurerm_resource_group.aks.name
-  address_space       = "10.0.0.0/16"
-  vnet_name           = '${var.prefix}-azurerm_resource_group.aks.name'
-  subnet_prefixes     = ["10.0.1.0/28","10.0.1.16/26","10.0.2.0/24"]
-  subnet_names        = ["aks-gateway","aks-dmz","aks-main"]
+  address_space       = "10.0.0.0/15"
+  vnet_name           = "${var.prefix_env}${var.prefix_loc}-${var.prefix_proj}-vnet"
+  subnet_prefixes     = ["10.1.8.32/27","10.1.8.0/27","10.1.0.0/21"]
+  subnet_names        = ["aks-gateway","aks-dmz","aks-node"]
   tags = {
     environment = "dev"
   }
   depends_on          = [azurerm_resource_group.aks]
 }
 
-module "aks" {
+module "aks01" {
   source              = "Azure/aks/azurerm"
   resource_group_name = azurerm_resource_group.aks.name
-  client_id           = "your-service-principal-client-appid"
-  client_secret       = "your-service-principal-client-password"
-  prefix              = var.prefix
-  vnet_subnet_id      = module.network.vnet_subnets[0]
+  client_id           = var.client_id
+  client_secret       = var.client_secret
+  prefix              = "${var.prefix_env}${var.prefix_loc}-${var.prefix_proj}"
+  vnet_subnet_id      = module.network01.vnet_subnets[2]
   os_disk_size_gb     = 126
   agents_count        = var.agents_count
   agents_size         = var.agents_size
   enable_log_analytics_workspace = false
-  # kubernetes_version  = var.kubernetes_version
   tags = {
     environment = "dev"
   }
-  depends_on = [module.network]
+  depends_on = [module.network01]
 }

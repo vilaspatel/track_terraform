@@ -1,25 +1,25 @@
-variable "resourcegroupname" {
-  default = "test-rg"
-  description = "A prefix used for all resources in this example"
-}
-
 variable "location" {
   default = "westus"
   description = "The Azure Region in which all resources in this example should be provisioned"
 }
 
-variable "prefix" {
-  default = "prod"
+variable "prefix_env" {
+  default = "D"
   description = "prefix env"
 }
 
-variable "Elasticsearch_name" {
-  default = "elasticsearch"
-  description = "Elasticsearch clustername "
+variable "prefix_loc" {
+  default = "WE"
+  description = "prefix env"
+}
+
+variable "prefix_proj" {
+  default = "PJ-AI"
+  description = "prefix env"
 }
 
 variable "agents_size" {
-  default = "Standard_F2"
+  default = "Standard_D2s_v3"
   description = "The default virtual machine size for the Kubernetes agents"
 }
 
@@ -28,7 +28,12 @@ variable "agents_count" {
   description = "AKS node count "
 }
 
-variable "kubernetes_version" {
-  description = "Version of Kubernetes to install"
-  default     = "1.11.3"
+variable "client_id" {
+  description = "AAD client_id"
+  default     = "1f8e7c84-21f9-49be-82d0-0f7aaaf04f7a"
+}
+
+variable "client_secret" {
+  description = "AAD client_secret"
+  default     = "8~SLTgo9B0o3.dh2YVAws~_JkNRm.sx_uZ"
 }
