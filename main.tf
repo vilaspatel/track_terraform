@@ -3,7 +3,7 @@ provider "azurerm" {
 }
 
 resource "azurerm_resource_group" "aks" {
-  name     = "${var.prefix_env}${var.prefix_loc}-${var.prefix_proj}-rg"
+  name     = "${var.prefix_env}${var.prefix_loc}-${var.prefix_proj}-RG"
   location = var.location
   tags = {
     environment = "dev"
